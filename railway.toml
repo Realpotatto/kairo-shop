@@ -1,16 +1,9 @@
 [build]
 builder = "nixpacks"
-buildCommand = "npm install -g pnpm && pnpm install --frozen-lockfile=false && pnpm run build"
 
 [deploy]
-startCommand = "pnpm run start"
+startCommand = "node --enable-source-maps api-server/dist/index.mjs"
 healthcheckPath = "/api/health"
 healthcheckTimeout = 60
 restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 3
-
-[[services]]
-name = "irforge"
-
-[services.variables]
-NODE_ENV = "production"
