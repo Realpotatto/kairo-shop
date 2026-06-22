@@ -12,4 +12,4 @@ cmds = [
 ]
 
 [start]
-cmd = "node --enable-source-maps api-server/dist/index.mjs"
+cmd = "node --enable-source-maps api-server/dist/index.cjs"

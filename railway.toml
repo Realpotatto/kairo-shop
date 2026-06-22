@@ -2,7 +2,7 @@
 builder = "nixpacks"
 
 [deploy]
-startCommand = "node --enable-source-maps api-server/dist/index.mjs"
+startCommand = "node --enable-source-maps api-server/dist/index.cjs"
 healthcheckPath = "/api/health"
 healthcheckTimeout = 60
 restartPolicyType = "on_failure"
