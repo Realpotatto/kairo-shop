@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>IrForge</title>
+    <meta name="description" content="IrForge — built on Replit. Update this description to reflect the app." />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="IrForge" />
+    <meta property="og:description" content="IrForge — built on Replit. Update this description to reflect the app." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="IrForge" />
+    <meta name="twitter:description" content="IrForge — built on Replit. Update this description to reflect the app." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+    <!--
+      FIX [lang]: تنظیم زبان و جهت — قبل از render اجرا می‌شه.
+      اگه کاربر زبان fa انتخاب کرده → dir=rtl + lang=fa
+      اگه en → dir=ltr + lang=en
+      پیش‌فرض: fa/rtl
+    -->
+    <script>
+      (function () {
+        try {
+          var lang = localStorage.getItem("irforge_lang") || "fa";
+          var html = document.documentElement;
+          html.setAttribute("lang", lang);
+          html.setAttribute("dir", lang === "fa" ? "rtl" : "ltr");
+        } catch (e) {
+          // localStorage بلاک — fa/rtl پیش‌فرض (همون مقدار html tag)
+        }
+      })();
+    </script>
+
+    <!--
+      FIX [1.3]: Anti-flash theme script — باید قبل از هر چیز اجرا بشه.
+      next-themes تم رو از localStorage می‌خونه ولی قبل از hydrate کلاس
+      .dark روی <html> نیست → فلش سفید. این اسکریپت بلافاصله کلاس درست
+      رو ست می‌کنه تا فلش نباشه.
+    -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("theme");
+          var theme = stored || "dark"; // defaultTheme="dark" مثل App.tsx
+          if (theme === "dark") {
+            document.documentElement.classList.add("dark");
+          } else if (theme === "system") {
+            if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+              document.documentElement.classList.add("dark");
+            }
+          }
+          // "light" → کلاس اضافه نمی‌کنیم، پیش‌فرض سفیده
+        } catch (e) {
+          // localStorage بلاک شده — dark پیش‌فرض
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
